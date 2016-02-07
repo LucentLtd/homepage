@@ -1,25 +1,32 @@
-var fleckColour = '#9d9d9d';
-var fleckCount = 500;
+var fleckColour = '#ed1c24';
+var fleckCount = 750;
+var fleckSizeMultiplier = 14;
+var mouseForce = 0.01;
+var width = window.innerWidth;
+var height = window.innerHeight;
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
-var width = window.outerWidth;
-var height = window.outerHeight;
 var mouse = {
   x: width / 2,
-  y: height / 2
+  y: height / 2,
+  dx: 0,
+  dy: 0
 };
 
 document.addEventListener('mousemove', function (event) {
-    mouse.x = event.clientX || event.pageX;
-    mouse.y = event.clientY || event.pageY
+    mouse.dx = event.clientX - mouse.x;
+    mouse.dy = event.clientY - mouse.y;
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
 }, false);
 
 function Fleck() {
-  this.x = width * Math.random() - width * Math.random() / 2 * Math.random();
-  this.y = height * Math.random() - height * Math.random() / 2 * Math.random();
-  this.size = Math.random() * 15;
+  this.size = Math.random() * fleckSizeMultiplier;
+  this.x = width * Math.random();
+  this.y = height * Math.random();
+  this.velocity = { x: 0, y: 0 };
 }
 
 var flecks = [];
@@ -31,17 +38,43 @@ var draw = function() {
   canvas.width = width;
   canvas.height = height;
 
+  var angle = Math.atan2(-mouse.dx, -mouse.dy);
+  var force = mouseForce;
+
+  var accelX = force * Math.sin(angle);
+  var accelY = force * Math.cos(angle);
+
   for (t = 0; t < flecks.length; t++) {
     var fleck = flecks[t];
-    var x = fleck.x + mouse.x / (fleck.size / 0.75);
-    var y = fleck.y + mouse.y / (fleck.size / 0.75);
-    var color = fleckColour;
+
+    fleck.velocity.x += accelX;
+    fleck.velocity.y += accelY;
+
+    if (fleck.velocity.x > 1) fleck.velocity.x = 1;
+    if (fleck.velocity.x < -1) fleck.velocity.x = -1;
+    if (fleck.velocity.y > 1) fleck.velocity.y = 1;
+    if (fleck.velocity.y < -1) fleck.velocity.y = -1;
+
+    fleck.x = fleck.x + fleck.velocity.x / fleck.size;
+    fleck.y = fleck.y + fleck.velocity.y / fleck.size;
 
     context.beginPath();
-    context.fillStyle = color;
-    context.arc(x, y, fleck.size * 2.5 , Math.PI * 2.2, true);
+    context.fillStyle = fleckColour;
+    context.arc(fleck.x, fleck.y, fleck.size * 2.55 , Math.PI * 2.25, true);
     context.fill();
+
+    if (fleck.x > width) {
+      fleck.x = fleck.x - width;
+    } else if (fleck.x < 0) {
+      fleck.x = width + fleck.x;
+    }
+
+    if (fleck.y > height) {
+      fleck.y = fleck.y - height;
+    } else if (fleck.y < 0) {
+      fleck.y = height + fleck.y;
+    }
   }
 }
 
-setInterval(draw, 0);
+setInterval(draw, 10);
