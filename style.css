@@ -1,8 +1,14 @@
+html {
+  font-family: "foco light";
+  font-size: 36px;
+  font-weight: 100;
+}
+
 body {
   margin: 0;
 }
 
-.home .background {
+.home.background {
   position: absolute;
   top: 0;
   right: 0;
@@ -10,10 +16,26 @@ body {
   left: 0;
 }
 
-.home .content {
+.home.content {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  width: 900px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home.content .logo {
+  display: block;
+  width: 400px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home.content .blurb {
+  text-align: center;
+}
+
+input:not([type=submit]):not([type=file]) {
+  border: 5px solid black;
 }
