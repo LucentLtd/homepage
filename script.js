@@ -1,7 +1,7 @@
 var fleckColour = '#ed1c24';
 var fleckCount = 750;
 var fleckSizeMultiplier = 14;
-var mouseForce = 0.01;
+var mouseForce = 0.5;
 var width = window.innerWidth;
 var height = window.innerHeight;
 
@@ -38,7 +38,7 @@ var draw = function() {
   canvas.width = width;
   canvas.height = height;
 
-  var angle = Math.atan2(-mouse.dx, -mouse.dy);
+  var angle = Math.atan2(mouse.dx, mouse.dy);
   var force = mouseForce;
 
   var accelX = force * Math.sin(angle);
@@ -47,19 +47,25 @@ var draw = function() {
   for (t = 0; t < flecks.length; t++) {
     var fleck = flecks[t];
 
+    var distance = Math.sqrt(
+      (mouse.x - fleck.x) * (mouse.x - fleck.x) +
+      (mouse.y - fleck.y) * (mouse.y - fleck.y)
+    );
+
     fleck.velocity.x += accelX;
     fleck.velocity.y += accelY;
 
-    if (fleck.velocity.x > 1) fleck.velocity.x = 1;
-    if (fleck.velocity.x < -1) fleck.velocity.x = -1;
-    if (fleck.velocity.y > 1) fleck.velocity.y = 1;
-    if (fleck.velocity.y < -1) fleck.velocity.y = -1;
+    if (fleck.velocity.x > 5) fleck.velocity.x = 5;
+    if (fleck.velocity.x < -5) fleck.velocity.x = -5;
+    if (fleck.velocity.y > 5) fleck.velocity.y = 5;
+    if (fleck.velocity.y < -5) fleck.velocity.y = -5;
 
-    fleck.x = fleck.x + fleck.velocity.x / fleck.size;
-    fleck.y = fleck.y + fleck.velocity.y / fleck.size;
+    fleck.x = fleck.x + fleck.velocity.x / fleck.size / (distance / 20);
+    fleck.y = fleck.y + fleck.velocity.y / fleck.size / (distance / 20);
 
     context.beginPath();
     context.fillStyle = fleckColour;
+
     context.arc(fleck.x, fleck.y, fleck.size * 2.55 , Math.PI * 2.25, true);
     context.fill();
 
