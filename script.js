@@ -1,5 +1,5 @@
 var fleckColour = '#ed1c24';
-var fleckCount = 750;
+var fleckCount = 950;
 var fleckSizeMultiplier = 14;
 var mouseForce = 0.5;
 var width = window.innerWidth;

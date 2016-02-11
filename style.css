@@ -1,3 +1,5 @@
+
+
 html {
   font-family: "foco light";
   font-size: 36px;
@@ -36,6 +38,82 @@ body {
   text-align: center;
 }
 
-input:not([type=submit]):not([type=file]) {
-  border: 5px solid black;
+fieldset {
+  font-size: 0.7em;
+  padding: 0.5em;
+  border-radius: 1em;
+  font-family: sans-serif;
+  border-width: 0;
+  text-align: center;
+}
+
+label,
+input,
+.button {
+  font-size: inherit;
+  padding: 13.8px 14.4px;
+  margin: 0.1em 0.2em;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  background-color: #fff;
+  border: 0;
+}
+
+label,
+input {
+  border: 3px solid #f7931e;
+  padding: 10.8px 14.4px;
+}
+
+input {
+  margin-right: -6px;
+  border-radius: 0.6em 0 0 0.6em;
+  color: black;
+}
+
+::-webkit-input-placeholder {
+  color: #666;
+}
+
+input:-moz-placeholder {
+  color: #666;
+}
+
+input::-moz-placeholder {
+  color: #666;
+}
+
+:-ms-input-placeholder {
+  color: #666;
+}
+
+/* Hack to fix firefox alignment */
+.button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input:focus {
+  outline: none;
+}
+
+.button {
+  margin-left: -6px;
+  border-radius: 0 0.6em 0.6em 0;
+  background: #f7931e;
+  background: -moz-linear-gradient(58deg, #f7931e 20%, #ed1c24 60%);
+  background: -webkit-linear-gradient(58deg, #f7931e 20%, #ed1c24 60%);
+  background: -o-linear-gradient(58deg, #f7931e 20%, #ed1c24 60%);
+  background: -ms-linear-gradient(58deg, #f7931e 20%, #ed1c24 60%);
+  background: linear-gradient(58deg, #f7931e 20%, #ed1c24 60%);
+  color: #fff;
+}
+
+.button:active,
+.button:focus {
+  outline: none;
 }
