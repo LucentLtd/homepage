@@ -1,7 +1,7 @@
 html {
-  font-family: "foco light";
-  font-size: 36px;
+  font-family: "foco light", sans-serif;
   font-weight: 100;
+  font-size: 36px;
 }
 
 body {
@@ -40,14 +40,17 @@ fieldset {
   font-size: 0.7em;
   padding: 0.5em;
   border-radius: 1em;
-  font-family: sans-serif;
   border-width: 0;
   text-align: center;
+  font-family: "foco light", sans-serif;
+  font-weight: 100;
 }
 
 label,
 input,
 .button {
+  font-family: "foco light", sans-serif;
+  font-weight: 100;
   font-size: inherit;
   padding: 13.8px 14.4px;
   margin: 0.1em 0.2em;
